@@ -86,7 +86,6 @@ class ASTProgram(AST):
 
 
 class Parser:
-
     def __init__(self, lexer: Lexer):
         self.__cur = None
         self.__peek = None
@@ -94,7 +93,6 @@ class Parser:
         self.__prefix_fn = {
             TokenType.IDENT: self.__parse_ident,
             TokenType.STRING: self.__parse_string,
-            # TokenType.LPAREN: self.__parse_grouped
         }
         self.__infix_fn = {
             TokenType.LPAREN: self.__parse_call
