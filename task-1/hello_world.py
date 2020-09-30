@@ -65,14 +65,12 @@ class AST:
 
 
 class ASTCallExpression(AST):
-
     def __init__(self, function, arguments):
         self.function = function
         self.arguments = arguments
 
 
 class ASTStringLiteral(AST):
-
     def __init__(self, value: str):
         self.value = value
 
