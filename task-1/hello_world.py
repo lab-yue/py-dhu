@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from typing import Type, List
+
 
 class TokenType:
     LPAREN = 0
@@ -71,12 +73,12 @@ class ASTCallExpression(AST):
 
 class ASTStringLiteral(AST):
 
-    def __init__(self, value):
+    def __init__(self, value: str):
         self.value = value
 
 
 class ASTIdentifier(AST):
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
 
@@ -150,7 +152,7 @@ class Parser:
     def __parse_string(self):
         return ASTStringLiteral(self.__cur.literal)
 
-    def __parse_call(self, function: AST):
+    def __parse_call(self, function: ASTIdentifier):
         return ASTCallExpression(
             function=function,
             arguments=self.__parse_expression_list(TokenType.LPAREN)
@@ -158,7 +160,7 @@ class Parser:
 
 
 class Evaluator:
-    def __init__(self, lexer: Lexer, parser: Parser):
+    def __init__(self, lexer: Type[Lexer], parser: Type[Parser]):
         self.__lexer_class = lexer
         self.__parser_class = parser
         self.__builtin = {'print': print, 'len': len}
@@ -174,10 +176,10 @@ class Evaluator:
             return node.value
         elif isinstance(node, ASTCallExpression):
             args = self.__eval_ast_list(node.arguments)
-            if (fn := self.__builtin.get(node.function.name)):
+            if fn := self.__builtin.get(node.function.name):
                 return fn(*args)
 
-    def __eval_ast_list(self, ast_list):
+    def __eval_ast_list(self, ast_list: List[AST]):
         return list(map(self.__eval_ast, ast_list))
 
 
