@@ -25,16 +25,16 @@ print_question(
 """
 )
 
-fizz_buzz_map = {0b10: "Fizz", 0b01: "Buzz", 0b00: "Fizz Buzz"}
-
 
 def read_fizz_buzz():
     path = __path__ / "int_list.txt"
     with path.open("r") as f:
-        for l in f.readlines():
-            n = int(l)
-            _hash = int(bool(int(l) % 3)) | int(bool(int(l) % 5)) << 1
-            print(fizz_buzz_map.get(_hash, n))
+        for n in map(int, f.readlines()):
+            print(
+                {0b10: "Fizz", 0b01: "Buzz", 0b00: "Fizz Buzz"}.get(
+                    int(bool(n % 3)) | int(bool(n % 5)) << 1, n
+                )
+            )
 
 
 read_fizz_buzz()
@@ -82,7 +82,7 @@ inputを用いて数値を2回受け取り、aとbという変数に代入して
 
 
 def write_sum_to_txt():
-    [a, b] = [int(input(f"{_} = "))for _ in ['a', 'b']]
+    [a, b] = [int(input(f"{_} = ")) for _ in ["a", "b"]]
     path = __path__ / "sum.txt"
     with path.open("w") as s:
         s.write(f"{a} + {b} = {a+b}")
