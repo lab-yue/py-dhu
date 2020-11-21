@@ -63,7 +63,7 @@ def count_vowel():
         poem = f.read()
     for part in line_regex.findall(poem):
         c = Counter(part)
-        vowels = sum([c[v] for v in ["あ", "い", "う", "え", "お"]])
+        vowels = sum([c[v] for v in "あいうえお"])
         print(f"{part}(母音数:{vowels})")
 
 
@@ -82,7 +82,7 @@ inputを用いて数値を2回受け取り、aとbという変数に代入して
 
 
 def write_sum_to_txt():
-    [a, b] = [int(input(f"{_} = ")) for _ in ["a", "b"]]
+    [a, b] = [int(input(f"{_} = ")) for _ in "ab"]
     path = __path__ / "sum.txt"
     with path.open("w") as s:
         s.write(f"{a} + {b} = {a+b}")
@@ -157,4 +157,4 @@ def calc_day(y: int, m: int, d: int) -> str:
     }.get((d + f(13 * (m + 1) / 5) + Y + f(Y / 4) + 5 * C + f(C / 4)) % 7) + "曜日"
 
 
-print(calc_day(*[int(input(f"{_} = ")) for _ in ["y", "m", "d"]]))
+print(calc_day(*[int(input(f"{_} = ")) for _ in "ymd"]))
