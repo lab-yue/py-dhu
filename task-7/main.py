@@ -146,15 +146,15 @@ def calc_day(y: int, m: int, d: int) -> str:
     from math import floor as f
 
     C, Y = f(y / 100), y % 100
-    return {
-        1: "日",
-        2: "月",
-        3: "火",
-        4: "水",
-        5: "木",
-        6: "金",
-        0: "土",
-    }.get((d + f(13 * (m + 1) / 5) + Y + f(Y / 4) + 5 * C + f(C / 4)) % 7) + "曜日"
+    return [
+        "土",
+        "日",
+        "月",
+        "火",
+        "水",
+        "木",
+        "金",
+    ][(d + f(13 * (m + 1) / 5) + Y + f(Y / 4) + 5 * C + f(C / 4)) % 7] + "曜日"
 
 
 print(calc_day(*[int(input(f"{_} = ")) for _ in "ymd"]))
