@@ -12,11 +12,6 @@ def print_question(question):
     return print(f"{UNDERLINE}{CYAN}{question}{END}{END}")
 
 
-def assert_print(a, b):
-    print(f"{a} == {b}")
-    assert a == b
-
-
 print_question(
     """
 問1.
@@ -78,7 +73,7 @@ class CharacterBase:
 
     def __init__(self, CharacterId: str, Name: str, HP: int, CurrentHP: int):
         self.__CharacterId = CharacterId
-        self.Name = Name
+        self.__Name = Name
         self.__HP = HP
         self.__CurrentHP = CurrentHP
 
@@ -87,6 +82,10 @@ class CharacterBase:
         diff = damage if tmp else self.__CurrentHP
         self.__CurrentHP = tmp
         return diff
+
+    @property
+    def Name(self):
+        return self.__Name
 
     @property
     def id(self):
@@ -101,12 +100,16 @@ class Character(CharacterBase):
 
     def __init__(self, Group: str, AttackPower: int = 0, Exp: int = 0, NextLevelExp: int = 0, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.Group = Group
+        self.__Group = Group
         self.__AttackPower = AttackPower
         self.__Exp = Exp
         self.__NextLevelExp = NextLevelExp
         self.__ExpRemain = 0
         self.__ExpMap = {}
+
+    @property
+    def Group(self):
+        return self.__Group
 
     @property
     def Exp(self):
@@ -220,39 +223,39 @@ class TestGame:
         self.__Players = players
 
     @property
-    def CurrentPlayer(self):
+    def __CurrentPlayer(self):
         return self.__Players[self.__TurnIndex % len(self.__Players)]
 
     @property
-    def AlivePlayers(self):
+    def __AlivePlayers(self):
         return [p for p in self.__Players if p.isAlive]
 
     @property
-    def GroupWin(self):
-        aliveGroups = set([p.Group for p in self.AlivePlayers])
+    def __GroupWin(self):
+        aliveGroups = set([p.Group for p in self.__AlivePlayers])
         if len(aliveGroups) == 1:
             return aliveGroups.pop()
         return None
 
     @property
-    def Target(self):
-        for target in self.AlivePlayers:
-            if self.CurrentPlayer.Group != target.Group:
+    def __Target(self):
+        for target in self.__AlivePlayers:
+            if self.__CurrentPlayer.Group != target.Group:
                 return target
         return None
 
     def run(self):
         print(f"{GREEN}バトル開始{END}")
-        while self.Target:
-            if self.CurrentPlayer.isAlive:
-                self.CurrentPlayer.Attack(self.Target)
+        while self.__Target:
+            if self.__CurrentPlayer.isAlive:
+                self.__CurrentPlayer.Attack(self.__Target)
             self.__TurnIndex += 1
-        self.end()
+        self.__end()
 
-    def end(self):
+    def __end(self):
         print(f"{GREEN}バトル終了{END}")
-        if self.GroupWin == Group.PLAYER:
-            for a in self.AlivePlayers:
+        if self.__GroupWin == Group.PLAYER:
+            for a in self.__AlivePlayers:
                 print(f"{GREEN}{a.Exp}の経験値を取得した。次のレベルまで{a.GetExpRemain}{END}")
 
 
