@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-GREEN = '\033[92m'
+GREEN = "\033[92m"
 CYAN = "\033[96m"
-YELLOW = '\033[93m'
-RED = '\033[91m'
+YELLOW = "\033[93m"
+RED = "\033[91m"
 UNDERLINE = "\033[4m"
 END = "\033[0m"
 
@@ -70,7 +70,6 @@ Characterクラスに次のレベルに到達するのに必要な値を表す�
 
 
 class CharacterBase:
-
     def __init__(self, CharacterId: str, Name: str, HP: int, CurrentHP: int):
         self.__CharacterId = CharacterId
         self.__Name = Name
@@ -97,8 +96,15 @@ class CharacterBase:
 
 
 class Character(CharacterBase):
-
-    def __init__(self, Group: str, AttackPower: int = 0, Exp: int = 0, NextLevelExp: int = 0, *args, **kwargs):
+    def __init__(
+        self,
+        Group: str,
+        AttackPower: int = 0,
+        Exp: int = 0,
+        NextLevelExp: int = 0,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.__Group = Group
         self.__AttackPower = AttackPower
@@ -126,7 +132,8 @@ class Character(CharacterBase):
     def Attack(self, target):
         damage = target.AddDamage(self.__AttackPower)
         print(
-            f"{self.Group}[{self.Name}のターン]{END}{target.Name}に対して攻撃を行った。{damage}のダメージ")
+            f"{self.Group}[{self.Name}のターン]{END}{target.Name}に対して攻撃を行った。{damage}のダメージ"
+        )
         if target.isAlive:
             self.__ExpMap[target.id] = self.__ExpMap.get(target.id, 0) + damage
         else:
@@ -217,7 +224,6 @@ class Group:
 
 
 class TestGame:
-
     def __init__(self, players):
         self.__TurnIndex = 0
         self.__Players = players
@@ -259,7 +265,9 @@ class TestGame:
                 print(f"{GREEN}{a.Exp}の経験値を取得した。次のレベルまで{a.GetExpRemain}{END}")
 
 
-player = Character(**parse(f"""
+player = Character(
+    **parse(
+        f"""
 CharacterId : 1
 Name : 主人公
 HP : 100
@@ -268,7 +276,9 @@ AttackPower : 1
 Exp : 0
 NextLevelExp : 10
 Group : {Group.PLAYER}
-"""))
+"""
+    )
+)
 
 enemy_1 = Character(
     **parse(
@@ -297,7 +307,8 @@ Exp : 0
 NextLevelExp : 0
 Group : {Group.ENEMY}
        """
-    ))
+    )
+)
 
 
 TestGame([player, enemy_1, enemy_2]).run()
