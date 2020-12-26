@@ -77,11 +77,11 @@ class AClass:
 
     def printData(self):
         for a in ['a_int', 'a_float', 'a_str']:
-            val = getattr(self, a)
-            t = type(val).__name__
+            v = getattr(self, a)
+            t = type(v).__name__
             if t == 'str':
-                val = f"'{val}'"
-            print(f"{a} = {val}({t})")
+                v = f"'{v}'"
+            print(f"{a} = {v}({t})")
 
 
 AClass("101").printData()
