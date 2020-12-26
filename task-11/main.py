@@ -26,7 +26,8 @@ print_question(
 
 クラスTestAttributeを作成し、その中にいくつかの変数、
 関数を定義してdir関数を用いてそのクラスに存在しているアトリビュートのリストを表記するプログラムを実装せよ
-""")
+"""
+)
 
 
 class TestAttribute:
@@ -65,21 +66,21 @@ a_str = '101'(str)
 "
 
 ※初期化メソッドで"101"を渡した場合を想定
-""")
+"""
+)
 
 
 class AClass:
-
     def __init__(self, a):
         self.a_int = int(a)
         self.a_float = float(a)
         self.a_str = str(a)
 
     def printData(self):
-        for a in ['a_int', 'a_float', 'a_str']:
+        for a in ["a_int", "a_float", "a_str"]:
             v = getattr(self, a)
             t = type(v).__name__
-            if t == 'str':
+            if t == "str":
                 v = f"'{v}'"
             print(f"{a} = {v}({t})")
 
@@ -105,7 +106,8 @@ print_question(
 {UNDERLINE}{CYAN}・getPowerOfX(self, n) : _xのn乗の値を返す
 
 また動作検証として、上記のクラスに対して、クラスのインスタンスを作成し、それぞれの関数が返した値を出力するプログラムを実装せよ
-""")
+"""
+)
 
 
 class Power:
@@ -137,7 +139,8 @@ print_question(
 
 上記Powerの__init__およびsetX関数に関して、引数として代入されてきた値が数値でなかった場合、
 _xに対してNone(何も存在しないことを示す値)を代入するプログラムを実装せよ
-""")
+"""
+)
 
 
 class Power2:
@@ -195,7 +198,7 @@ class OutOfRangeError(Exception):
 def lerp(a, b, t):
     try:
         if 0 <= t <= 1:
-            return a + (b-a)*t, None
+            return a + (b - a) * t, None
         raise OutOfRangeError("tが0から1の範囲にない")
     except Exception as e:
         return -1, e
@@ -203,12 +206,10 @@ def lerp(a, b, t):
 
 assert_print(lerp(1, 2, 1), (2, None))
 assert_print(lerp(0, 2, 0), (0, None))
-assert_print(lerp(2, 4, .5), (3, None))
+assert_print(lerp(2, 4, 0.5), (3, None))
 
 ret, message = lerp("2", None, -1)
-assert_print(ret, -1)
-assert_print(isinstance(message, OutOfRangeError), True)
+assert_print((ret, isinstance(message, OutOfRangeError)), (-1, True))
 
 ret, message = lerp("2", None, -1)
-assert_print(ret, -1)
-assert_print(isinstance(message, Exception), True)
+assert_print((ret, isinstance(message, Exception)), (-1, True))
