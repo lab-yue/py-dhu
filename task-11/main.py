@@ -188,7 +188,7 @@ print_question(
 )
 
 
-class OutOfRange(Exception):
+class OutOfRangeError(Exception):
     pass
 
 
@@ -196,7 +196,7 @@ def lerp(a, b, t):
     try:
         if 0 <= t <= 1:
             return a + (b-a)*t, None
-        raise OutOfRange("tが0から1の範囲にない")
+        raise OutOfRangeError("tが0から1の範囲にない")
     except Exception as e:
         return -1, e
 
@@ -207,7 +207,7 @@ assert_print(lerp(2, 4, .5), (3, None))
 
 ret, message = lerp("2", None, -1)
 assert_print(ret, -1)
-assert_print(isinstance(message, OutOfRange), True)
+assert_print(isinstance(message, OutOfRangeError), True)
 
 ret, message = lerp("2", None, -1)
 assert_print(ret, -1)
