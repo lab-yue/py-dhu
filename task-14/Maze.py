@@ -122,7 +122,6 @@ class Maze:
                 return
         self._startPath.pop()
         if len(self._startPath) == 0:
-            self
             self._isCreated = True
             self.draw()
 
