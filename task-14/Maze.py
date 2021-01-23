@@ -129,15 +129,14 @@ class Maze:
         print("draw")
         for y in range(self._height):
             for x in range(self._width):
-                cell = self.__cell(x, y)
-                if cell >> 7:
+                if self.__cell(x, y) >> 7:
                     print("❌", end="")
                 elif [x, y] == self._playerPoint:
                     print("🔱", end="")
                 else:
                     print("✅", end="")
             print("")
-        print("press arrow key to move:\nw: ↑ \ns: ↓ \nd: → \na: ←\nq: QUIT\n")
+        print("press key to move:\nw: ↑ \ns: ↓ \nd: → \na: ←\nq: QUIT\n")
 
     def moveIfOk(self, direction):
         [x, y] = self._playerPoint
