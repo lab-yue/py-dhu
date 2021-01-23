@@ -137,7 +137,7 @@ class Maze:
                 else:
                     print("✅", end="")
             print("")
-        print("press arrow key to move:\nw:↑ \ns: ↓ \nd:→ \na:←\nq: QUIT\n")
+        print("press arrow key to move:\nw: ↑ \ns: ↓ \nd: → \na: ←\nq: QUIT\n")
 
     def moveIfOk(self, direction):
         [x, y] = self._playerPoint
