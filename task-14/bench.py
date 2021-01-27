@@ -35,4 +35,5 @@ for size in [50, 100, 500, 1000]:
     run("MazeYue", size, 1000 // size)
     run("MazeYueOld", size, 1000 // size)
     run("MazeYama", size, 1000 // size)
+    run("MazeYamaModify", size, 1000 // size)
     print("-" * 20)
