@@ -67,7 +67,7 @@ class Maze:
             raise "maze size should be bigger than 5x5"
         self._width = width
         self._height = height
-        self._data = list(map(lambda _: 0b11111111, bytearray(width * height)))
+        self._data = [0b11111111] * width * height
         # self.kbd = {
         #     "a": lambda: self.moveIfOk(1 << 0),
         #     "d": lambda: self.moveIfOk(1 << 1),

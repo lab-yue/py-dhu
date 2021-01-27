@@ -19,12 +19,12 @@ class Direction:
         LEFT,
         RIGHT,
     ]
-    MAP = {
-        "KEY_UP": UP,
-        "KEY_DOWN": DOWN,
-        "KEY_LEFT": LEFT,
-        "KEY_RIGHT": RIGHT,
-    }
+    # MAP = {
+    #     "KEY_UP": UP,
+    #     "KEY_DOWN": DOWN,
+    #     "KEY_LEFT": LEFT,
+    #     "KEY_RIGHT": RIGHT,
+    # }
 
 
 class Cell:
@@ -52,6 +52,7 @@ class Maze:
         self._height = height
         self._map = [[Cell() for _ in range(width)] for _ in range(height)]
         self._created = False
+        self.run()
         # self._movingPostion = None
 
     @property
@@ -74,14 +75,15 @@ class Maze:
         startPoint.open()
         self._visited.append([x, y])
 
-        while True:
+        # while True:
+        while not self._created:
             # c.clear()
             # m.draw()
-            if not self._created:
-                #    self.waitForMove(win)
-                # else:
-                #    time.sleep(.3)
-                self.dig()
+            # if not self._created:
+            #    self.waitForMove(win)
+            # else:
+            #    time.sleep(.3)
+            self.dig()
             # c.refresh()
 
     def dig(self) -> int:
