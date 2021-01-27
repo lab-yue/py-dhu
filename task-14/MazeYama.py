@@ -1,3 +1,4 @@
+# https://gist.github.com/koorimizuw/6a8702f2289c032e05de063d7d385f3b
 from random import randint, choice
 
 """
