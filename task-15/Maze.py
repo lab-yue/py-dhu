@@ -90,10 +90,8 @@ class Maze:
 
     def startGame(self):
         self._startPoint = choice(self._open)
+        self._goalPoint = choice([p for p in self._open if p != self._startPoint])
         self._playerPoint = self._startPoint
-        _pathClone = self._open
-        _pathClone.remove(self._startPoint)
-        self._goalPoint = choice(_pathClone)
         self._goalPath = self.search(self._startPoint)
         self.draw()
         while self._playerPoint != self._goalPoint:
