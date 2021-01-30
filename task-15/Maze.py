@@ -80,7 +80,7 @@ class Maze:
     def create(self):
         print("create")
         [x, y] = self.__randomPoint()
-        self._data[self.__by(x, y)] &= 0b01111111
+        self._data[self.__by(x, y)] &= 127
         self._open.append([x, y])
         self._startPath.append([x, y])
 
@@ -107,7 +107,7 @@ class Maze:
         for direction in directions:
             [dx, dy] = direction
             [nx, ny] = [x + dx, y + dy]
-            if not self.__cell(nx, ny) or (self.__cell(nx, ny) & 0b10000000):
+            if not self.__cell(nx, ny) or (self.__cell(nx, ny) & 128):
                 pass
             elif [nx, ny] == self._goalPoint:
                 return path
@@ -123,8 +123,8 @@ class Maze:
     def dig(self):
         print("dig")
         [x, y] = self._startPath[-1]
-        head = self.__cell(x, y) & 0b11110000
-        tail = self.__cell(x, y) & 0b00001111
+        head = self.__cell(x, y) & 240
+        tail = self.__cell(x, y) & 15
         while tail:
             (k, dx, dy) = choice(
                 list(
@@ -142,10 +142,10 @@ class Maze:
             tail &= ~(1 << k)
             self._data[self.__by(x, y)] = head | tail
             [nx_1, ny_1, nx_2, ny_2] = [x + dx, y + dy, x + 2 * dx, y + 2 * dy]
-            if self.__cell(nx_1, ny_1) & self.__cell(nx_2, ny_2) & 0b10000000:
-                self._data[self.__by(nx_1, ny_1)] &= 0b01111111
+            if self.__cell(nx_1, ny_1) & self.__cell(nx_2, ny_2) & 128:
+                self._data[self.__by(nx_1, ny_1)] &= 127
                 self._open.append([nx_1, ny_1])
-                self._data[self.__by(nx_2, ny_2)] &= 0b01111111
+                self._data[self.__by(nx_2, ny_2)] &= 127
                 self._open.append([nx_2, ny_2])
                 self._startPath.append([nx_2, ny_2])
                 return
@@ -163,7 +163,7 @@ class Maze:
                     "🈁": lambda: [x, y] == self._startPoint,
                     "🍎": lambda: [x, y] == self._goalPoint,
                     "🟨": lambda: [x, y] in self._goalPath,
-                    "⬜️": lambda: True
+                    "⬜️": lambda: True,
                 }.items():
                     if f():
                         print(cell, end="")
